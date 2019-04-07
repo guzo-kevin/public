@@ -15,7 +15,7 @@ __Where is the settings.json__
 * In this configuration I used one of the virtual environment created in Anaconda
 ```
 {
-    "python.pythonPath": "C:\\Users\\zoug\\Programs\\Continuum\\anaconda3\\envs\\main\\python.exe"
+    "python.pythonPath": "C:\\Users\\username\\Programs\\Continuum\\anaconda3\\envs\\main\\python.exe"
 }
 ```
 ### Terminal
@@ -25,7 +25,7 @@ __Where is the settings.json__
 {
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
     "terminal.integrated.shellArgs.windows": [
-        "/K" "C:\\Users\\zoug\\Programs\\Continuum\\anaconda3\\Scripts\\activate.bat C:\\Users\\zoug\\Programs\\Continuum\\anaconda3\\envs\\main"
+        "/K" "C:\\Users\\username\\Programs\\Continuum\\anaconda3\\Scripts\\activate.bat C:\\Users\\username\\Programs\\Continuum\\anaconda3\\envs\\main"
     ]
 }
 ```
@@ -39,7 +39,7 @@ __Where is the settings.json__
     "shellLauncher.shells.windows": [
         {
             "shell": "C:\\Windows\\System32\\cmd.exe",
-            "args": ["/K", "C:\\Users\\zoug\\Programs\\Continuum\\anaconda3\\Scripts\\activate.bat C:\\Users\\zoug\\Programs\\Continuum\\anaconda3\\envs\\main"],
+            "args": ["/K", "C:\\Users\\username\\Programs\\Continuum\\anaconda3\\Scripts\\activate.bat C:\\Users\\username\\Programs\\Continuum\\anaconda3\\envs\\main"],
             "label":"Anaconda Main",
             "launchName":"Anaconda Main",
         },
@@ -69,7 +69,7 @@ __Where is the settings.json__
     "shellLauncher.shells.windows": [
         {
             "shell": "C:\\Windows\\System32\\cmd.exe",
-            "args": ["/K", "C:\\Users\\zoug\\Programs\\Continuum\\anaconda3\\Scripts\\activate.bat C:\\Users\\zoug\\Programs\\Continuum\\anaconda3\\envs\\main"],
+            "args": ["/K", "C:\\Users\\username\\Programs\\Continuum\\anaconda3\\Scripts\\activate.bat C:\\Users\\username\\Programs\\Continuum\\anaconda3\\envs\\main"],
             "label":"Anaconda Main",
             "launchName":"Anaconda Main",
         },
