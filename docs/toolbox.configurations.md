@@ -104,6 +104,7 @@ __Where is the settings.json__
 * PowerShell
 * Python
 * shell launcher
+* TFS
 
 
 # Oracle sqlcl (18.4)
@@ -145,3 +146,20 @@ __Where is the settings.json__
   * m2-util-linux (for utilities)
   * numpy, matplotlib, pandas
   * jupyter
+
+
+# git bash
+
+* Set the .bash_profile
+  * set the python environment to Anaconda 'main' env
+  ```
+  export PYTHONPATH=/c/Users/zoug/Programs/Continuum/anaconda3/envs/main
+  export PATH=$PYTHONPATH:$PYTHONPATH/Scripts:$PATH
+  ```
+  * set aliass
+  ```
+  alias sql='sql user/pass@service'
+  alias sqlcmd='sqlcmd -S server_name  -d database'
+  alias mssql-cli='mssql-cli -S server_name -d database -E'
+  # -E is for integrated authentication
+  ```
