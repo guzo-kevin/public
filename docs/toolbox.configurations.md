@@ -153,7 +153,7 @@ __Where is the settings.json__
 * Set the .bash_profile
   * set the python environment to Anaconda 'main' env
   ```
-  export PYTHONPATH=/c/Users/zoug/Programs/Continuum/anaconda3/envs/main
+  export PYTHONPATH=/c/Users/username/Programs/Continuum/anaconda3/envs/main
   export PATH=$PYTHONPATH:$PYTHONPATH/Scripts:$PATH
   ```
   * set aliass
