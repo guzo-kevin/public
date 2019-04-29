@@ -97,3 +97,41 @@ The job show in web gui
 ## 6. How to monitor job submitted by Jupyter/VS Code? 
 
 I tried http://127.0.0.1:4041/jobs/ which worked - it display all the jobs I submitted via VS Code. 
+
+
+## 7. Oracle JDBC Test
+
+Edit spark-defaults.conf file (copied from spark-defaults.conf.template) in SPARK_HOME/conf
+
+Add following line:
+```
+spark.driver.extraClassPath c:\\Users\\xxxx\\Programs\\sqldeveloper\\jdbc\\lib\\ojdbc8.jar
+```
+
+Here I used the JDBC came with SQL Developer.  The configuration was tested with following code 
+
+```
+import findspark
+findspark.init()
+
+import pyspark
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
+empDF = spark.read \
+    .format("jdbc") \
+    .option("url", "jdbc:oracle:thin:@//hostname:port/sid") \
+    .option("dbtable", "TEST_TABLE") \
+    .option("user", "secret_uid") \
+    .option("password", "secret_pwd") \
+    .option("driver", "oracle.jdbc.driver.OracleDriver") \
+    .load()
+
+empDF.count()
+```
+
+# Learning Materials
+
+[Learn PySpark](https://www.tutorialspoint.com/pyspark/pyspark_sparkcontext.htm)
+
+![Data Flow]
+(https://www.tutorialspoint.com/pyspark/images/sparkcontext.jpg " ")
