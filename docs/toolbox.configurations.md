@@ -25,7 +25,7 @@ __Where is the settings.json__
 {
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
     "terminal.integrated.shellArgs.windows": [
-        "/K" "C:\\Users\\username\\Programs\\Continuum\\anaconda3\\Scripts\\activate.bat C:\\Users\\username\\Programs\\Continuum\\anaconda3\\envs\\main"
+        "/K","C:\\Users\\username\\Programs\\Continuum\\anaconda3\\Scripts\\activate.bat C:\\Users\\username\\Programs\\Continuum\\anaconda3\\envs\\main"
     ]
 }
 ```
@@ -127,7 +127,7 @@ __Where is the settings.json__
 * I installed jtds jdbc client for SQL Developer to connect to SQL Server
   * the MS SQL Server JDBC 7.2 does not work with SQL Developer 
   * the SSO (dll) need to be in system path environment in order for Windows Integrated Authentidation to work
-* 
+* I also installed SQL-cli, which is a modern SQLPlus using JDBC
 
 
 # Oracle Thin Client (12.2)
@@ -135,6 +135,8 @@ __Where is the settings.json__
 # Oracle XE (18)
 
 # SQL Server Developer Edition for Linux (2017)
+
+##  I installed [mssql-cli](https://docs.microsoft.com/en-us/sql/tools/mssql-cli?view=sql-server-2017) on my laptop. It work well but it breaks my Anaconda jupyter environment. I had to stop using it. 
 
 # Python/Anaconda Environment
 
