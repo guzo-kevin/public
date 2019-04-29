@@ -55,7 +55,7 @@ and add path to
 
 ## 4. Test
 I tested following code in VS Studio
-```
+``` python
 #%%
 import findspark
 findspark.init()
@@ -110,7 +110,7 @@ spark.driver.extraClassPath c:\\Users\\xxxx\\Programs\\sqldeveloper\\jdbc\\lib\\
 
 Here I used the JDBC came with SQL Developer.  The configuration was tested with following code 
 
-```
+``` python
 import findspark
 findspark.init()
 
