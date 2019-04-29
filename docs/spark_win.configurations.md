@@ -133,5 +133,4 @@ empDF.count()
 
 [Learn PySpark](https://www.tutorialspoint.com/pyspark/pyspark_sparkcontext.htm)
 
-![Data Flow]
-(https://www.tutorialspoint.com/pyspark/images/sparkcontext.jpg " ")
+![Data Flow](https://www.tutorialspoint.com/pyspark/images/sparkcontext.jpg " ")
