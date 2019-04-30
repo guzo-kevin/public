@@ -1,3 +1,5 @@
+Updated 4/30/2019
+
 # VS Code (1.33)
 
 __Where is the settings.json__
@@ -104,7 +106,10 @@ __Where is the settings.json__
 * PowerShell
 * Python
 * shell launcher
-* TFS
+* TFS (not very useful)
+* VIM 
+* Settings Sync
+* SQL Server (mssql)
 
 
 # Oracle sqlcl (18.4)
@@ -130,13 +135,11 @@ __Where is the settings.json__
 * I also installed SQL-cli, which is a modern SQLPlus using JDBC
 
 
-# Oracle Thin Client (12.2)
-
-# Oracle XE (18)
-
-# SQL Server Developer Edition for Linux (2017)
+# mssql-cli
 
 ##  I installed [mssql-cli](https://docs.microsoft.com/en-us/sql/tools/mssql-cli?view=sql-server-2017) on my laptop. It work well but it breaks my Anaconda jupyter environment. I had to stop using it. 
+
+### No I should not say it breaks the Jupyter, but given it uses the python environment I used for python development, I don't know a way to specify an interpreter for mssql-cli yet.  
 
 # Python/Anaconda Environment
 
@@ -148,9 +151,10 @@ __Where is the settings.json__
   * m2-util-linux (for utilities)
   * numpy, matplotlib, pandas
   * jupyter
+  * Pyspark
 
 
-# git bash
+# git bash (2.2)
 
 * Set the .bash_profile
   * set the python environment to Anaconda 'main' env
