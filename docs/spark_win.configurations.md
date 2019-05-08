@@ -22,6 +22,8 @@ _JAVA_OPTIONS=-Xmx16G -Xms512M
 ```
 
 I noticed when I launch java I received following error
+
+
 ```
 C:\Users\xxxx>java -version
 Picked up _JAVA_OPTIONS: -Xmx16G -Xms512M
@@ -31,6 +33,8 @@ Error: Could not create the Java Virtual Machine.
 Error: A fatal exception has occurred. Program will exit.
 ```
 This is because the java in PATH (set before this version) was 32-bit java, which can't utilized 16G stack 
+
+Note: setting Xmx16G in system evironment applies to all JVM. So it breaks some of my applications which uses 32bit Java. Need to find another place for Spark.
 
 ## 2. Install Spark
 I downloaded spark2.4.2 "Pre-built for Apache Hadoop 2.7 and later" tgz file.  tar xvf to ~\Programs\spark-2.4.2-bin-hadoop2.7
@@ -130,6 +134,8 @@ empDF.count()
 ```
 
 # Learning Materials
+
+[The Internal of Spark SQL] (https://jaceklaskowski.gitbooks.io/mastering-spark-sql/)
 
 [Learn PySpark](https://www.tutorialspoint.com/pyspark/pyspark_sparkcontext.htm)
 
