@@ -1,3 +1,5 @@
+Updated 4/30/2019
+
 # Install and Configure Spark on My Windows 10
 
 ## I'v installed Anaconda Python, with PySpark and Findspark modules. I always use my "main" virtual env to do everything. I left my "base" alone. See my other page for details.
