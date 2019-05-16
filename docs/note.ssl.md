@@ -58,34 +58,6 @@ Note, DER Encoding is not readable as plain text no matter the file extension of
   openssl pkcs12 -export -out certificate.pfx -inkey privateKey.key -in certificate.crt -certfile CACert.crt
   ```
 
-- Convert between JKS and PEM can't happen directly. It need to use both keytoo and openssl, and interim format PKCS12 that both tools understand
-  ```
-  # from JKS to PEM
-
-  $ keytool -importkeystore -srckeystore /opt/cloudera/security/jks/hostname-keystore.jks  -srcstorepass password -srckeypass password -destkeystore /tmp/hostname-keystore.p12 -deststoretype PKCS12 -srcalias hostname -deststorepass password -destkeypass password
-
-  $ openssl pkcs12 -in /tmp/hostname-keystore.p12 -passin pass:password  -nokeys -out /opt/cloudera/security/pki/hostname.pem
-  ```
-  ```
-  # from PEM to JKS
-
-  $ openssl pkcs12 -export -in /opt/cloudera/security/pki/hostname.pem -inkey /opt/cloudera/security/pki/hostname.key -out /tmp/hostname.p12 -name hostname -passin pass:password -passout pass:password
-
-  $ keytool -importkeystore -srckeystore /tmp/hostname.p12 -srcstoretype PKCS12 -srcstorepass password -alias hostname -deststorepass password -destkeypass password -destkeystore /opt/cloudera/security/jks/hostname-keystore.jks
-
-  ```
-  ```
-  # Extract private key from pkcs keystore
-
-  $ openssl pkcs12 -in /tmp/hostname-keystore.p12 -passin pass:password -nocerts -out /opt/cloudera/security/pki/hostname.key -passout pass:password
-
-  # Generate key without password
-
-  $ openssl rsa -in /tmp/hostname-keystore.p12 -passin pass:password -nocerts -out /opt/cloudera/security/pki/hostname.pem
-  ```
-    
-
-
 #### Create CSR
 - Create CSR with key, key length is recommanded to be longer than 2048. -keyout is the name for private key. -out is the name for csr
   ```
@@ -149,3 +121,4 @@ When a server daemon starts, it load keystore.
   $ openssl rsa -in /tmp/hostname-keystore.p12 -passin pass:password -nocerts -out /opt/cloudera/security/pki/hostname.pem
   ```
     
+#### Add CA to Truststore for TLS/SSL
