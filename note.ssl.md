@@ -26,8 +26,8 @@ The following command displays only subject and issuer. x509 is a format standar
 ```
 $ openssl s_client -connect wikipedia.org:443 | openssl x509 -noout -subject -issuer
 ```
-[command line explain 1](https://wiki.openssl.org/index.php/Command_Line_Utilities)
-[command line explain 2](https://www.sslshopper.com/article-most-common-openssl-commands.html)
+- [command line explain 1](https://wiki.openssl.org/index.php/Command_Line_Utilities)
+- [command line explain 2](https://www.sslshopper.com/article-most-common-openssl-commands.html)
 
 #### Convert between cert encodings
 - Convert a DER file (.crt .cer .der) to PEM
