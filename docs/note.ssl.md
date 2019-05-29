@@ -41,8 +41,11 @@ Note, DER Encoding is not readable as plain text no matter the file extension of
 
 - Convert a DER file (.crt .cer .der) to PEM
   ```
-  openssl x509 -inform der -in certificate.cer -out certificate.pem
+  openssl x509 -inform der -in certificate.cer -out certificate.pem -outform PEM
   ```
+  * note:  I recieved this error when tring to convert .cer to .pem
+  openssl x509 -inform der -in certnew.cer -out ymcert.pem
+  In [this article](https://stackoverflow.com/questions/14191468/openssl-encoding-errors-while-converting-cer-to-pem) and cloudera SSL/TLS guide, just copy to .cer to .pem directly without any convertion needed. 
 - Convert a PEM file to DER
   ```
   openssl x509 -outform der -in certificate.pem -out certificate.der
@@ -80,7 +83,10 @@ Note, DER Encoding is not readable as plain text no matter the file extension of
   ```
   openssl x509 -x509toreq -in certificate.crt -out CSR.csr -signkey privateKey.key
   ```
-
+- Self sign a CSR
+  ```
+  openssl x509 -req -days 365 -in server.csr -signkey server.key -sha256 -out server.crt
+  ```
 
 ## Java Keystore and Truststore
 
@@ -122,3 +128,47 @@ When a server daemon starts, it load keystore.
   ```
     
 #### Add CA to Truststore for TLS/SSL
+
+To be edited
+
+
+
+
+#### CA Extension fields
+
+the following content is copied from [this link](https://security.stackexchange.com/questions/100768/difference-between-certificates-with-extension-fields-and-non-repudiation-us)
+
+[Quote]
+The extensions are only some kind of policy meta-data attached to the certificate. Technically, no matter the extensions, a certificate remains the same thing: a file linking a key to an identity. Its information could be used for any purpose: authenticating a server, a client, signing other certificates, signing emails, signing software/driver code, etc.
+
+That's where extensions enters into play: they tell the application which usages are applicable to this certificate, so that when the application encounters the certificate in an unauthorized context it could (or must, depending if the usage is set to critical or not) consider the certificate as invalid and refuse it.
+
+However, this check must be done at the application level. A poorly implemented application may not check these usages properly and accept any certificate at any time.
+
+Also, few supplementary things must be noted:
+
+These extension are only restriction. A certificate with no extension is allowed to be used in any role (no usage limitation), while a certificate containing some extension is restricted to the usage defined by these extensions,
+Theses extension are actually divided in two main parts (plus one merely hstorical):
+
+The key usage (like "Non-repudiation" in you example) defines lower-level cryptography usage allowed for this certificate,
+The extended key usage provides a higher level usage authorized for this certificate ("TLS Web Server Authentication" and "TLS Web Client Authentication" in your examples).
+Some applications also handle what's called Netscape Cert Type, it can be seen as the precursor of the extended key usages and gather usages such as "SSL Server", "SSL Client", etc.
+All of these key usages may be associated and used in a complementary way.
+
+Some extension might be flagged as "critical": this flag determine how an application not recognizing / having not implemented a specific extension must handle the certificate. Under such situation, if the "critical" flag is enabled the application must reject the certificate, when this flag is not set the application may still accept the certificate.
+
+Extended key usages names (as well as Netscape cert type) are rather straightforward to understand. Key usages however deeply depend on how the protocol (in case of a network communication) will use the certificates. Commonly found key usages for a SSL/TLS client/server application are the following ones:
+
+Server: Digital Signature, Non Repudiation, Key Encipherment,
+Client: Digital Signature, Key Encipherment, Data Encipherment.
+So, to answer to your edited questions:
+
+Does certificate with "Non Repudiation" usage allow to authenticate all clients with/without "TLS Web Client Authentication" usage?
+
+But "TLS Web Server Authentication" without "Non Repudiation" allows to auth clients only with "TLS Web Client Authentication" usage?
+
+The "Non Repudiation" usage from the server's certificate will be mostly checked by client software, not by the server, and it will have no impact on the way the server will validate client's certificates.
+
+"TLS Web Client Authentication" usage will prevent client's certificates from being used in a server context. It's absence will not block any authentication. However, if a client tries to authenticate using a certificate without this usage but with "TLS Web Server Authentication" instead then the authentication will most likely be refused by the server.
+
+[End Quote]
