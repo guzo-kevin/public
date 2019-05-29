@@ -21,6 +21,11 @@ print ('--stdout----------------------')
 print (stdout.read())
 print ('--stderr----------------------')
 print (stderror.read())
+sftp = client.open_sftp()
+sftp.put('a.csv','/tmp/a.csv')
+stdin,stdout,stderror = client.exec_command('ls -lrt /tmp')
+print (stdout.read())
+
 ```
 ## pyodbc
 ``` python
