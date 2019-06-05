@@ -129,8 +129,34 @@ When a server daemon starts, it load keystore.
     
 #### Add CA to Truststore for TLS/SSL
 
-To be edited
+Many organizations use Windows Domain Controller to distribute internal CA. But for Linux machines, you are on your own. When i tried to use LDAPS to access AD server, the request was rejected because the internal CA as not trusted by my Linux machine. 
 
+I need to let my Java trust my orginizations internal CA. Here is how:
+
+Use openssl to obtain the CA the server is using. In following case, the server is AD server. Copy the outpput begin cert ... end cert to a file called ca.pem
+```
+openssl s_client -connect server.domain.com:636
+```
+
+Covert the pem to der
+```
+openssl x509 -in ca.pem -inform pem -out ca.der -outform der
+```
+Validate the der has right content
+```
+keytool -v -printcert -file ca.der
+```
+
+import the der into jssecacerts (java trust store)
+```
+keytool -importcert -alias org-ad -keystore jssecacerts -storepass changeit -file ca.der
+```
+
+
+Verify the cert is imported
+```
+keytool -keystore jssecacerts -storepass changeit -list|grep ad
+```
 
 
 
