@@ -169,3 +169,20 @@ __Where is the settings.json__
   alias mssql-cli='mssql-cli -S server_name -d database -E'
   # -E is for integrated authentication
   ```
+
+# vim
+
+These are the tricks I can never remember. So I write it down here
+  * same line non-greedy match .\{-}
+  * multi line non-greedy match \_.\{-}
+
+For example if I want to match
+```
+Alter table abc
+    drop constrains...
+    ...
+Go
+```
+
+I would use:
+/Alter \_.\{-}GO
