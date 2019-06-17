@@ -30,3 +30,21 @@ if __name__ == "__main__":
     for path in run("ping -c 5 google.com"):
         print path
 ```
+
+
+## Print to the same line on screen
+
+```python
+for i in range(10):
+    print(i, end = " ")
+
+Output:
+0 1 2 3 4 5 6 7 8 9
+```
+
+To overwrite a line
+```
+for i in range(10):
+    print(i, end = "\r")
+```
+
