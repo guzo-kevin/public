@@ -25,7 +25,29 @@ sftp = client.open_sftp()
 sftp.put('a.csv','/tmp/a.csv')
 stdin,stdout,stderror = client.exec_command('ls -lrt /tmp')
 print (stdout.read())
+```
 
+When I tried to multi-thread the ssh to many hosts, I noticed there are many unexpected errors happened. I had to do following:
+
+1. let the main program to retrieve pkey from key_filename, then pass the pkey to connections. So that keyfile will not need to be openned by every threads
+```python
+# put following in main module, not in thread
+key_filename=os.path.expanduser(PRIVATE_KEYFILE)
+private_key = paramiko.RSAKey.from_private_key_file(key_filename)
+```
+2. Disable  look_for_keys, which look for files in ~/.ssh/. almost garrenteed to fail most of the threads. Note in the connect method I used pkey instead of key_filename list in previous examples
+
+ ```python
+ ssh_client.connect(self._ipaddress,username=USER,pkey=private_key, look_for_keys=False,allow_agent=False,auth_timeout=5.0)
+ ```
+3. make the declaration and reference of paramiko.SSHClient close to each other. Somehow the SSHClient expire quickly. 
+
+
+
+#### paramiko logging
+paramiko generates logs of DEBUG information. I had to use following to mute most of them
+```
+logging.getLogger("paramiko").setLevel(logging.WARNING)
 ```
 ## pyodbc
 ``` python
@@ -81,6 +103,18 @@ with tqdm(total=500) as pbar:
     for row in range (500):
         time.sleep(0.01)
         pbar.update(1)
+        pass
+```
+
+Can 2 bars run concurrently? yes.
+```py
+# position here is the line number after the command
+with tqdm(total=347,position=0) as pbar0:
+    with tqdm(total=347,position=1) as pbar1:
+        for row in range (347):
+            time.sleep(0.01)
+            pbar0.update(1)
+            pbar1.update(1)
         pass
 ```
 

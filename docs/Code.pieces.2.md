@@ -48,3 +48,12 @@ for i in range(10):
     print(i, end = "\r")
 ```
 
+## Strange behavior of gitbash handling / in command line arguments
+
+to be added
+
+
+
+## argparse List and Variable in consistant behavior
+
+to be added
