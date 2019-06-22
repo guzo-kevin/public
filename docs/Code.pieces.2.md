@@ -50,7 +50,30 @@ for i in range(10):
 
 ## Strange behavior of gitbash handling / in command line arguments
 
-to be added
+git bash some how converts command line arguments starting with "/" to a local path. This is really annoying. 
+
+for example when run the following application:
+```py
+import sys
+print (str(sys.argv))
+```
+
+```bash
+$ python args1.py /tmp
+['args1.py', 'C:/Users/dev_t/AppData/Local/Temp']
+```
+
+good thing is I was not alone. Here is a link to a bug report but it was not seen as a bug. 
+https://github.com/git-for-windows/git/issues/1462
+
+the fix is to export MSSYS_NO_PATHCONV=1
+
+```bash
+$ export MSYS_NO_PATHCONV=1
+
+$ python args1.py /tmp
+['args1.py', '/tmp']
+```
 
 
 
