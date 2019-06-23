@@ -75,8 +75,34 @@ $ python args1.py /tmp
 ['args1.py', '/tmp']
 ```
 
+## **kwarg notes
+
+In function (**kwargs), **kwargs is referenced in function as a dictionary. When call this function, the arguments need to be in (var_name1='val1', var_name2='val2'). Note the var_name1 does not is not an actual variable. It's a keyward which does not need to be in quotation mark '"'
+
+for example:
+``` py
+def a (**kwargs):
+    if 'nodes' in kwargs:
+        print(kwargs['nodes'])
+    elif 'filename' in kwargs:
+        pass
+    pass
+    
+def main():
+    nodelist = ['a','b','c']
+    a (nodes = nodelist)
+# nodes is not a dictionary, nodes is not a string, but nodes is a keyward
+
+```
+
+## argparse 
+
+#### List and Variable  inconsistant behavior
+
+to be added
 
 
-## argparse List and Variable in consistant behavior
+
+## logging 
 
 to be added
