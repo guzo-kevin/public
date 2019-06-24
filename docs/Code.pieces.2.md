@@ -95,14 +95,16 @@ def main():
 
 ```
 
-## argparse 
-
-#### List and Variable  inconsistant behavior
-
-to be added
-
-
 
 ## logging 
 
-to be added
+What I do is to have a mylogging.py module as below. I import this module in my other modules.  I write logging.info for the code that's being debugged.
+```py
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.getLogger("paramiko").setLevel(logging.WARNING)
+# logging.getLogger("paramiko").setLevel(logging.DEBUG)
+```
+
