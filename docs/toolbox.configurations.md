@@ -173,8 +173,10 @@ __Where is the settings.json__
 # vim
 
 These are the tricks I can never remember. So I write it down here
+```
   * same line non-greedy match .\{-}
   * multi line non-greedy match \_.\{-}
+```
 
 For example if I want to match
 ```
@@ -185,4 +187,6 @@ Go
 ```
 
 I would use:
+```
 /Alter \_.\{-}GO
+```
