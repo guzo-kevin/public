@@ -100,3 +100,15 @@ CREATE PLUGGABLE DATABASE mynamedev1pdb
 # SQL Server Developer Edition for Linux (2017)
 
 # MariaDB (5.7)
+
+
+# MySQL on my Linux Sandbox
+
+#### Install
+
+```bash
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+# yum update
+yum install mysql-server
+```
