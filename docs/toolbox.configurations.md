@@ -108,7 +108,7 @@ __Where is the settings.json__
 * shell launcher
 * TFS (not very useful)
 * VIM 
-* Settings Sync
+* Settings Sync (synced to github gist ca90d586f6575d4a34f3dd07d6207e2c )
 * SQL Server (mssql)
 
 
