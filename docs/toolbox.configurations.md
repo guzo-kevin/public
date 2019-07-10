@@ -110,6 +110,40 @@ __Where is the settings.json__
 * VIM 
 * Settings Sync (synced to github gist ca90d586f6575d4a34f3dd07d6207e2c )
 * SQL Server (mssql)
+* REST Client
+    * file name extention need to be .http or .rest
+    * use ### as divider between requests
+    * can use curl command directly, but need to specify http:// or https:// in front of URL
+    * Use GET/POST/PUT directly. URL should not be enclosed by '"'
+    ```
+    GET http://10.62.224.11:9200/_cat/indices?v
+
+    ###
+
+    PUT http://10.62.224.11:9200/shakespeare/_settings HTTP/1.1
+    Content-Type: application/json'
+
+    {
+        "index" : {
+            "number_of_replicas" : 0
+        }
+    }
+
+    ###
+
+    curl -X GET "http://10.62.224.11:9200/_cluster/health?pretty"
+
+    ###
+
+    curl -X PUT "http://10.62.224.11:9200/_settings" -H 'Content-Type: application/json' -d'
+    {
+        "index" : {
+            "number_of_replicas" :  0
+        }
+    }
+    '
+
+    ```
 
 
 # Oracle sqlcl (18.4)
