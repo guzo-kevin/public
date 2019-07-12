@@ -56,9 +56,16 @@
   ```
 
 
-  None of above works - finally i am trying to install the older version download:
+  #### None of above works - finally i am trying to install the older version download:
   WindowsTH-RSAT_WS_1803-x64
   after install, type dsa to find "Active Directory Users and Computers"
 
   https://thewindowscentral.com/active-directory-users-and-computers/
+
+## API
+
+I spent half day trying to get the cm_api to work, only to find out there is a newer better version available:
+https://cloudera.github.io/cm_api/docs/python-client-swagger/
+
+It worked. And I also generated the self-signed cert in DER (.cer) format using Chrome, then convert to .PEM format, then the client is able to use it so there's not a warning or error when dealing with this particular self-signed cert.
 
