@@ -203,6 +203,15 @@ __Where is the settings.json__
   alias mssql-cli='mssql-cli -S server_name -d database -E'
   # -E is for integrated authentication
   ```
+##  Merge in command line (need to verify)
+
+I have 3 branches, master, office, and home. Let's say home is behind master:
+
+1. commit all changes in home if any
+2. git checkout master; git pull (so local master is up to date)
+3. git checkout home (back to home branch)
+4. git merge master (catch up)
+5. git push (let remote know these 2 branches are merged)
 
 # vim
 
@@ -224,3 +233,4 @@ I would use:
 ```
 /Alter \_.\{-}GO
 ```
+
