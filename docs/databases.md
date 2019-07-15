@@ -97,6 +97,16 @@ CREATE PLUGGABLE DATABASE mynamedev1pdb
   PATH_PREFIX = '/opt/oracle/oradata/XE/mynamedev1pdb/';
 ```
 
+By default pluggable database will not open after reboot. Need to save state
+```
+alter pluggable database pdb_name save state;
+```
+
+alter local_listner 
+```
+alter system set local_listener='(ADDRESS = (PROTOCOL=TCP)(HOST=srvdc03c01-lnxd)(PORT=1521))' scope=both;
+```
+
 # SQL Server Developer Edition for Linux (2017)
 
 # MariaDB (5.7)
