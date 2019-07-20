@@ -34,6 +34,15 @@ set the default groupFile to ["nodes"] instead of "nodes" would make the input f
     parser.add_argument("-g","--group",nargs=1, metavar="",action='store',default=["nodes"],dest="groupFile", help="a file for list of nodes, one line per node")
 ```
 
+* a simple way to process flg argument 
+  ```py
+     parser.add_argument("--listroles", action = 'store_true',help='list roles in the cluster')
+     options = parser.parse_args()
+     if options.listroles:
+        pass
+     
+  ```
+
 ## Parallel
 
 threading
