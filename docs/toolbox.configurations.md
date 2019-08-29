@@ -203,6 +203,20 @@ __Where is the settings.json__
   alias mssql-cli='mssql-cli -S server_name -d database -E'
   # -E is for integrated authentication
   ```
+
+
+
+* Split window/terminal with tmux [Here](https://blog.pjsen.eu/?p=440) 
+
+    * install msys2 (actually we just need 2 files from this install)
+    * in msys2 terminal pacman -S tmux
+    * copy tmux.exe and msys-event-*.dll to git /usr/bin (C:\Program Files \Git\user\bin, or /minw64\bin  I copied to both and did not spend time to find out which one actually is useful)
+    * run tmux in terminal
+    * use the shortcut to operate
+    * =
+    * the approach did not work initially. I tried to install a newer version 2.3 git to see if the version matters. Then I find out i actually have not been using the git-bash, what I used was git + cmd, which is why tmux did not work.  I chose the option to use git-bash during the git 2.3 installation and the previously deployed tmux worked. 
+  
+
 ##  Merge in command line (need to verify)
 
 I have 3 branches, master, office, and home. Let's say home is behind master:
@@ -212,6 +226,17 @@ I have 3 branches, master, office, and home. Let's say home is behind master:
 3. git checkout home (back to home branch)
 4. git merge master (catch up)
 5. git push (let remote know these 2 branches are merged)
+
+
+## git proxy
+
+use following commands to switch proxy
+
+```
+alias gitoffice='git config --global http.proxy http://10.76.225.15:80'
+alias githome='git config --global --unset http.proxy'
+```
+
 
 # vim
 
