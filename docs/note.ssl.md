@@ -100,6 +100,16 @@ When a server daemon starts, it load keystore.
 
 - Utility - [keytool](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html)
 
+- delete from jssecacerts and add new key to jssecacerts
+  ```
+   keytool -delete -alias keyforall -keystore jssecacerts -storepass changeit    
+   keytool -importcert -alias keyforall -keystore jssecacerts -storepass changeit -file keyforall.pem
+  ```
+
+- generate new self -signed cert
+  ```
+  keytool -genkeypair -alias keyforall -keyalg RSA -keysize 2048 -dname "cn=cloudera-dc1.abc.com, ou=LAB, o=mycomp, l=DC, st=DC, c=US" -keypass password! -keystore keyforall-keystore.jks -storepass password! -validity 365 -ext SAN=dns:host1,dns:host2,dns:host3,dns:host1.abc.com,dns:host2.abc.com,dns:host3.abc.com
+  ```
 
 - Convert between JKS and PEM can't happen directly. It need to use both keytoo and openssl, and interim format PKCS12 that both tools understand
   ```

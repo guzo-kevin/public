@@ -135,3 +135,10 @@ https://cryptography.io/en/latest/hazmat/primitives/asymmetric/rsa/
 different library:
 
 https://www.pyopenssl.org/en/stable/api/crypto.html#certificates
+
+# read content of key
+```
+openssl x509 -in cacert.pem -text -noout
+
+keytool -printcert -file selfsigned.cer 
+```

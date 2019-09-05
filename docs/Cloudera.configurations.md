@@ -1,3 +1,55 @@
+## SSL/TLS
+
+#### Self-signed certs
+
+The basic idea of using self-signed certs in Cloudera is:
+
+https://www.cloudera.com/documentation/enterprise/5-14-x/topics/sg_self_signed_tls.html
+
+* use keytool to create a self-signed cert, store it in jks
+```
+keytool -genkeypair -alias cmhost -keyalg RSA -keysize 2048 -dname "cn=cm01.example.com, ou=Department, o=Company, l=City, st=State, c=US" -keypass password -keystore example.jks -storepass password
+```
+
+* use keytool to export the cert to .cer (.pem) file
+(it may need to use both keytool and openssl https://www.cloudera.com/documentation/enterprise/5-14-x/topics/cm_sg_openssl_jks.html )
+
+```
+ keytool -export -alias cmhost -keystore example.jks -rfc -file selfsigned.pem
+```
+
+* use keytool to import the .cer to jssecacerts trust store
+```
+keytool -importcert -alias xxxx -keystore jssecacerts -file selfsigned.pem -storepass changeit
+```
+* let CM know where the keystore and trust store files are, and which key to use
+
+* A private key (.pem), password file (.pw) and a cert (.pem) are needed for agent. 
+```
+in /etc/cloudera-scm-agent/config.ini
+
+client_key_file=/opt/cloudera/security/x509/agent.key
+client_keypw_file=/opt/cloudera/security/x509/agentkey.pw 
+client_cert_file=/opt/cloudera/security/x509/keyforall.pem
+
+to get private key from keystore:
+
+keytool -importkeystore -srckeystore key-keystore.jks \
+-srcstorepass password -srckeypass password \
+-destkeystore agentkey.p12 \
+-deststoretype PKCS12 -srcalias keyforall -deststorepass \
+password -destkeypass password
+
+openssl pkcs12 -in agentkey.p12  -passin pass:password -nocerts -out  agent.key -passout pass:password
+```
+
+
+#### Root and Intermediate CA
+https://www.cloudera.com/documentation/enterprise/5-14-x/topics/sg_add_root_ca_explicit_trust.html
+
+* root ca goes to trust store
+* intca append to host.cert.pem
+
 ## Kerberos
 
 #### Use AD user other than current login user to operate HDFS
@@ -19,14 +71,14 @@
     # klist -k <filename>.keytab  -Kt //list content of keytab
     ```
     
-    2. init keytab so it has the tkt.
+    1. init keytab so it has the tkt.
     ```
     kinit -p user -kt <filename>.keytab   
     
     klist
     ```
     
-    3. test hdfs
+    1. test hdfs
     ```
     hdfs dfs -mkdir /user/abc
     ```
@@ -70,5 +122,5 @@ or
 [https://archive.cloudera.com/cm6/6.2.0/generic/jar/cm_api/swagger-html-sdk-docs/python/docs/ServicesResourceApi.html#read_services](https://archive.cloudera.com/cm6/6.2.0/generic/jar/cm_api/swagger-html-sdk-docs/python/docs/ServicesResourceApi.html#read_services)
 
 and this ultimate doc: [https://archive.cloudera.com/cm6/6.2.0/generic/jar/cm_api/swagger-html-sdk-docs/python/README.html](https://archive.cloudera.com/cm6/6.2.0/generic/jar/cm_api/swagger-html-sdk-docs/python/README.html)
-It worked. And I also generated the self-signed cert in DER (.cer) format using Chrome, then convert to .PEM format, then the client is able to use it so there's not a warning or error when dealing with this particular self-signed cert.
+It worked. And I also download/save the self-signed cert in DER (.cer) format using Chrome, then convert to .PEM format, then the client is able to use it so there's not a warning or error when dealing with this particular self-signed cert.
 
