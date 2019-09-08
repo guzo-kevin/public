@@ -78,4 +78,10 @@ Root Mean Squared Error (RMSE):
 Mean Absolute Error (MAE): 
 
 
+# Further reading (from Data Science from Scratch,2nd edition, Chapter 21 )
 
+* NLTK is a popular library of NLP tools for Python.  It has its own entire book, which is available to read [online](http://www.nltk.org/book/).
+* [gensim](https://radimrehurek.com/gensim/) is a Python library for topic modeling, which is a better bet than our from-scratch model.
+* [spaCy](https://spacy.io/) is a library for “Industrial Strength Natural Language Processing in Python” and is also quite popular.
+* Andrej Karpathy has a famous blog post,  [“The Unreasonable Effectiveness of Recurrent Neural Networks”](http://karpathy.github.io/2015/05/21/rnn-effectiveness/), that’s very much worth reading.
+* My day job involves building [AllenNLP](https://allennlp.org/), a Python library for doing NLP research. (At least, as of the time this book went to press, it did.) The library is quite beyond the scope of this book, but you might still find it interesting, and it has a cool interactive demo of many state-of-the-art NLP models.
