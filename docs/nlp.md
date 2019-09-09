@@ -78,10 +78,29 @@ Root Mean Squared Error (RMSE):
 Mean Absolute Error (MAE): 
 
 
-# Further reading (from Data Science from Scratch,2nd edition, Chapter 21 )
+# Further reading (from Data Science from Scratch,2nd edition, Chapter 21 and Text Analytics with Python:A Practitioner's Guide to Natural Language Processing, Chapter 2)
 
 * NLTK is a popular library of NLP tools for Python.  It has its own entire book, which is available to read [online](http://www.nltk.org/book/).
-* [gensim](https://radimrehurek.com/gensim/) is a Python library for topic modeling, which is a better bet than our from-scratch model.
-* [spaCy](https://spacy.io/) is a library for “Industrial Strength Natural Language Processing in Python” and is also quite popular.
+   It contains over 50 corpora and lexical resources. It comes with a suite of efficient modles for classifications, tokenizations, stemming, lemmatization, tagging, parsing, and semantic reasoning. 
+
+* [gensim](https://radimrehurek.com/gensim/) is a Python library for topic modeling, which is a better bet than our from-scratch model. It has work2Vec
+
+* [spaCy](https://spacy.io/) is a library for “Industrial Strength Natural Language Processing in Python” and is also quite popular. work with  TensorFlow, PyTorch, Scikit-Learn, Gensim, etc. support for several langauges and Pretrained word vectors
+
 * Andrej Karpathy has a famous blog post,  [“The Unreasonable Effectiveness of Recurrent Neural Networks”](http://karpathy.github.io/2015/05/21/rnn-effectiveness/), that’s very much worth reading.
+
 * My day job involves building [AllenNLP](https://allennlp.org/), a Python library for doing NLP research. (At least, as of the time this book went to press, it did.) The library is quite beyond the scope of this book, but you might still find it interesting, and it has a cool interactive demo of many state-of-the-art NLP models.
+
+# General Data Science bookmark
+
+https://skymind.ai/wiki/word2vec
+
+I searched Word2Vec and find this website. Seemed the first stop for most Data Science/AI topics
+
+### Word2Vec
+
+provided by gensim library
+
+Word2Vec is a 2-layer neural net that processes text. Its input is a text corpus and its output is a set of vectors: feature, vectors for words in that corpus. 
+
+It turns text into a numerical form that deep nets can understand.  Given enough data, usage and context, word2vec can make highly accurate guesses about a word's meaning, the guesses can be used to establish a word's association with other words. 
