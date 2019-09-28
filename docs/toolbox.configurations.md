@@ -186,6 +186,12 @@ __Where is the settings.json__
   * numpy, matplotlib, pandas
   * jupyter
   * Pyspark
+* to set Jupyter environment, in home directory:
+  ```
+  jupyter notebook --generate-config
+  ```
+  It will generate .jupyter\jupyter_notebook_config.py, change the parameters in the file
+
 
 
 # git bash (2.2)

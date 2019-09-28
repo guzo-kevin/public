@@ -94,8 +94,11 @@ Mean Absolute Error (MAE):
 # General Data Science bookmark
 
 https://skymind.ai/wiki/word2vec
+https://heartbeat.fritz.ai/the-7-nlp-techniques-that-will-change-how-you-communicate-in-the-future-part-i-f0114b2f0497
 
 I searched Word2Vec and find this website. Seemed the first stop for most Data Science/AI topics
+
+
 
 ### Word2Vec
 
@@ -104,3 +107,10 @@ provided by gensim library
 Word2Vec is a 2-layer neural net that processes text. Its input is a text corpus and its output is a set of vectors: feature, vectors for words in that corpus. 
 
 It turns text into a numerical form that deep nets can understand.  Given enough data, usage and context, word2vec can make highly accurate guesses about a word's meaning, the guesses can be used to establish a word's association with other words. 
+
+### Out of vocabulary words
+https://medium.com/@shabeelkandi/handling-out-of-vocabulary-words-in-natural-language-processing-based-on-context-4bbba16214d5
+
+
+### summarize
+https://heartbeat.fritz.ai/extractive-text-summarization-using-neural-networks-5845804c7701
