@@ -114,6 +114,24 @@ https://www.cloudera.com/documentation/enterprise/5-14-x/topics/sg_add_root_ca_e
 
   [https://thewindowscentral.com/active-directory-users-and-computers/](https://cloudera.github.io/cm_api/docs/python-client-swagger/)
 
+
+## Query for AD User for LDAP
+
+#### Linux
+```
+ldapsearch -v -H ldap://adserver.abc.com -D'abc@abc.com' -w'abcpassword' -b'OU=team,OU=Office,OU=users,dc=abc,dc=com'
+# the above command query everything under the OU
+
+ldapsearch -v -H ldap://adserver.abc.com -D'abc@abc.com' -w'abcpassword' -b'CN=group_name,OU=groups,OU=team,OU=Office,OU=users,dc=abc,dc=com'
+# the above command query everything in the CN group
+```
+#### Windows
+```
+Get-ADUser -Filter 'SamAccountName -like "*admin"'
+Get-ADUser -Filter 'Name -like "*admin"'
+Get-ADGroup -Filter 'Name -like "*admin*"'
+```
+
 ## API
 
 I spent half day trying to get the cm_api to work (need python2, then caused problem with VS Code, Git Bash, etc, etc), only to find out there is a newer better version available:
