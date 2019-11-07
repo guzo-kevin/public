@@ -142,6 +142,9 @@ or
 and this ultimate doc: [https://archive.cloudera.com/cm6/6.2.0/generic/jar/cm_api/swagger-html-sdk-docs/python/README.html](https://archive.cloudera.com/cm6/6.2.0/generic/jar/cm_api/swagger-html-sdk-docs/python/README.html)
 It worked. And I also download/save the self-signed cert in DER (.cer) format using Chrome, then convert to .PEM format, then the client is able to use it so there's not a warning or error when dealing with this particular self-signed cert.
 
+Here is a very clear version of API doc
+[https://archive.cloudera.com/cm6/6.0.0/generic/jar/cm_api/apidocs/index.html](https://archive.cloudera.com/cm6/6.0.0/generic/jar/cm_api/apidocs/index.html)
+
 ## LDAP
 DN = Distinguished name, the full path to the object
 CN = common name 
