@@ -106,5 +106,13 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 # logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logging.getLogger("paramiko").setLevel(logging.WARNING)
 # logging.getLogger("paramiko").setLevel(logging.DEBUG)
+
+
+parser.add_argument("-d","--debug",action='store_true', dest="debug_flag", help="Debug mode runs slower and generates lot of outputs")
+
+options = parser.parse_args()
+if options.debug_flag:
+    logging.getLogger().setLevel(logging.DEBUG)
+
 ```
 
