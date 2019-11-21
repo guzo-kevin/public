@@ -50,28 +50,29 @@ ssh-rsa AAAAB3NzaC1yc2E...Q02P1Eamz/nT4I3 root@localhost
 
 OpenSSH and OpenSSL used to use the same format for private key. But OpenSSH started to use its own format. 
 
-* OpenSSL Key is like this:
+* OpenSSL Key is like this (not an valid actual key):
 
 ```
 -----BEGIN PRIVATE KEY-----
 MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgiYydo27aNGO9DBUW
 eGEPD8oNi1LZDqfxPmQlieLBjVShRANCAAQhPVJYvGxpw+ITlnXqOSikCfz/7zms
-yODIKiSueMN+3pj9icDgDnTJl7sKcWyp4Nymc9u5s/pyliJVyd680hjK
+yOSSSiSueMN+3pj9icDgDnTJl7sKcWyp4Nymc9u5s/pyliJVyd680hjK
 -----END PRIVATE KEY-----
 
 or 
 
 -----BEGIN RSA PRIVATE KEY-----
-MIIEpAIBAAKCAQEAxhhbENu3NytrsWSUweH0y+UqI3JtzzzzoV0QqQm2CfikMR6p  
+MIIEpAIBAAKCAQEAxhhbENu3NytrsWSUweH0y+UqIxxxzzzzoV0QqQm2CfikMR6p  
 
 -----END RSA PRIVATE KEY-----
 ```
 
 
-* New OpenSSh key is like this:
+* New OpenSSh key is like this (not an valid actual key)
+
 ```
 -----BEGIN OPENSSH PRIVATE KEY-----
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAaAAAABNlY2RzYS
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAxxxAAAAABAAAAaAAAABNlY2RzYS
 1zaGEyLW5pc3RwMjU2AAAACG5pc3RwMjU2AAAAQQR9WZPeBSvixkhjQOh9yCXXlEx5CN9M
 yh94CJJ1rigf8693gc90HmahIR5oMGHwlqMoS7kKrRw+4KpxqsF7LGvxAAAAqJZtgRuWbY
 EbAAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBH1Zk94FK+LGSGNA
