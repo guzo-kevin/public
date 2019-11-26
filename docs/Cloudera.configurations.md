@@ -58,8 +58,6 @@ All the agent configuration is in config.ini. All the other configurations are i
 ```
 ## Config agent
 
-I have experience 2 scinarious need to convert between the format
-
 
 * agent configuration (config.ini)
 ```
@@ -79,14 +77,33 @@ select * from CONFIGS where ATTR='web_tls';
 
 ## Cert - Key convertion
 
+I have experience 2 scinarious need to convert between the format
+
 1. start from self-signed cert 
 
 * i used keytool to generate self-signed cert, it stores cert/key in jks
-
+```
+keytool -genkeypair -alias keyforall -keyalg RSA -keysize 2048 -dname "cn=abc.com, ou=abc, o=dep, l=DC, st=DC, c=US" -keypass password! -keystore keyforall-keystore.jks -storepass password! -validity 365 -ext SAN=dns:abc1,dns:abc2,dns:abc1.com,dns:abc2.com
+```
 * use keytool to export cert to pem (cert only)
+```
+keytool -export -alias keyforall -keystore keyforall-keystore.jks -storepass password! -rfc -file keyforall.pem
+```
 
 * use keytool to retrieve private key to p12 (destkeystore)
+```
+keytool -importkeystore -srckeystore keyforall-keystore.jks \
+         -srcstorepass password! -srckeypass password! \
+         -destkeystore agentkey.p12 \
+         -deststoretype PKCS12 -srcalias keyforall -deststorepass \
+         password! -destkeypass password!
+```
+
 * use openssl to convert private key p12 to key in pem format (with password encryption)
+
+```
+openssl pkcs12 -in agentkey.p12 -passin pass:password! -nocerts -out agent.key -passout pass:password!
+```
 
 2. start from CA signed cert 
 * i received cert/key in .pfx format (exported from windows cert store), .pfx is a type of pkcs12
@@ -99,14 +116,14 @@ winpty openssl pkcs12 -in abc.pfx -out abc.ca.pem -nokeys -cacerts -nodes
 ```
 * i used keytool to import client (pub) cert, cacerts, i manually split cacert to root and int,  to jssecacert
 ```
-keytool -importcert -alias root_ca -keystore conf/jssecacerts -file conf/ca.root.pem -noprompt -storepass changeit
-keytool -importcert -alias int1 -keystore conf/jssecacerts -file conf/ca.int1.pem -noprompt -storepass changeit
-keytool -importcert -alias int2 -keystore conf/jssecacerts -file conf/ca.int2.pem -noprompt -storepass changeit
-keytool -importcert -alias client_cert -keystore conf/jssecacerts -file conf/abc.pub.pem -noprompt -storepass changeit
+keytool -importcert -alias root_ca -keystore jssecacerts -file ca.root.pem -noprompt -storepass changeit
+keytool -importcert -alias int1 -keystore jssecacerts -file ca.int1.pem -noprompt -storepass changeit
+keytool -importcert -alias int2 -keystore jssecacerts -file ca.int2.pem -noprompt -storepass changeit
+keytool -importcert -alias client_cert -keystore jssecacerts -file abc.pub.pem -noprompt -storepass changeit
 ```
 * i used openssl to convert all.pem to p12 (for some reason the .pfx does not work as p12 in some situations)
 ```
-openssl pkcs12 -export -in abc.all.pem -name abc-all -passout pass:actual_password > conf/abc.all.p12
+openssl pkcs12 -export -in abc.all.pem -name abc-all -passout pass:actual_password > abc.all.p12
 ```
 * use keytool to import the p12 to a jks
 ```
