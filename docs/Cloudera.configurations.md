@@ -1,5 +1,121 @@
 ## SSL/TLS
 
+
+## What is the goal
+1. Need to access the console with https//SSL/TLS (port 7183 vs 7180)
+2. Need to encrypt the traffic between agent and server with TLS/SSL. But any cert would be ok
+3. Need to authenticate server and agent so only right certs can be used between them 
+4. TLS/SSL for cloudera clusters (services)
+
+## How it works
+
+A listening (server) component need to provide a public cert to client component, it also need a key so it can decrypt the client message encrypted using the cert. Client need to trust the cert that server component provided. 
+
+So we are talking about 3 things. Public Cert, Private Key, and Truststore. Private key and truststore need to be protected by password. so there are 2 or more passwords. Public/Private key can be provided in 2 formats, jks and pem for different components.
+
+In cloudera manager, only agent uses pem format of pub/pri keys. other components need to use jks which stores both pub and pri certs. 
+
+How to make a cert trusted? for most components jssecacert are used as truststore. For cm agent, a trusted cert is specified in /etc/cloudera-cm-agent/config.ini, either to specify the self-signed cert, or to specify a root cert, root + intimediate certs.
+
+All the agent configuration is in config.ini. All the other configurations are in scm database. 
+
+## what we need
+* jssecert with all certs added
+* a pem with all root ca + intemidiate certs, or self-signed cert for agent to trust
+* a pem of cert (or self-signed cert) for agent to use
+* a pem of private key and password for agent to use
+* a jks with both cert and key for cm server to use, there should be only one cert and key in the jks because I did not see alias can be specified 
+
+## Config CM
+
+* server configuration
+```
+  /cm/config (Administration -> Settings -> security):
+    KEYSTORE_PATH (cm step1)
+    KEYSTORE_PASSWORD (cm step1)
+    WEB_TSL (cm step1) # once this switch flips the cm server will try to start using TLS
+    TRUSTORE_PATH (agent step4)
+    TRUSTORE_PASSWORD (agent step4)
+
+  /cm/service/config (Services -> Configuration -> Scope (Service-Wide) -> Security )
+    ssl_client_truststore_location (cm step2)
+    ssl_client_truststore_password (cm step2)
+    Note: the display name for above 2 parameters were wrong on document. 
+
+  /cm/config (Administration -> Settings -> security):
+    AGENT_TLS (agent step1) # once this set cm start use TLS to communicate with agent
+    NEED_AGENT_VALIDATION (agent step4) # once this set cm verify if agent is using right cert (in trust store and if the cert actually is valid for the server (DN or SAN))
+  
+  I've not verified Whether following is needed 
+    ssl_server_keystore_password
+    ssl_server_keystore_location
+    in
+    /cm/service/roleConfigGroups/mgmt-ACTIVITYMONITOR-BASE/config
+    /cm/service/roleConfigGroups/mgmt-HOSTMONITOR-BASE/config
+    /cm/service/roleConfigGroups/mgmt-SERVICEMONITOR-BASE/config
+    /cm/service/roleConfigGroups/mgmt-NAVIGATORMETASERVER-BASE/config 
+
+```
+## Config agent
+
+I have experience 2 scinarious need to convert between the format
+
+
+* agent configuration (config.ini)
+```
+  use_tls=1 (agent step2)
+  verify_cert_file: specify if the self-signed cert or root/intemediate certs to trust
+  client_key_file: private key in pem format
+  client_cert_file: public cert in pem format
+  client_keypw_file: clear text password protected by linux file permission (440 by root)
+```
+
+
+##  Reverse configuration
+You can update the CONFIGS table in scm database to reverse the web_tls or agent_tls in case things do not work out as expected, other settings such as the passwords, locations of keystore and trust store, does not matter.  
+
+select * from CONFIGS where ATTR='agent_tls';
+select * from CONFIGS where ATTR='web_tls';
+
+## Cert - Key convertion
+
+1. start from self-signed cert 
+
+* i used keytool to generate self-signed cert, it stores cert/key in jks
+
+* use keytool to export cert to pem (cert only)
+
+* use keytool to retrieve private key to p12 (destkeystore)
+* use openssl to convert private key p12 to key in pem format (with password encryption)
+
+2. start from CA signed cert 
+* i received cert/key in .pfx format (exported from windows cert store), .pfx is a type of pkcs12
+* i used openssl to retrieve all certs, key, client cert, cacerts respectively in pem format
+```
+winpty openssl pkcs12 -in abc.pfx -out abc.all.pem -nodes
+winpty openssl pkcs12 -in abc.pfx -out abc.pri.pem -nocerts -nodes
+winpty openssl pkcs12 -in abc.pfx -out abc.pub.pem -nokeys -clcerts -nodes
+winpty openssl pkcs12 -in abc.pfx -out abc.ca.pem -nokeys -cacerts -nodes
+```
+* i used keytool to import client (pub) cert, cacerts, i manually split cacert to root and int,  to jssecacert
+```
+keytool -importcert -alias root_ca -keystore conf/jssecacerts -file conf/ca.root.pem -noprompt -storepass changeit
+keytool -importcert -alias int1 -keystore conf/jssecacerts -file conf/ca.int1.pem -noprompt -storepass changeit
+keytool -importcert -alias int2 -keystore conf/jssecacerts -file conf/ca.int2.pem -noprompt -storepass changeit
+keytool -importcert -alias client_cert -keystore conf/jssecacerts -file conf/abc.pub.pem -noprompt -storepass changeit
+```
+* i used openssl to convert all.pem to p12 (for some reason the .pfx does not work as p12 in some situations)
+```
+openssl pkcs12 -export -in abc.all.pem -name abc-all -passout pass:actual_password > conf/abc.all.p12
+```
+* use keytool to import the p12 to a jks
+```
+keytool -importkeystore  -deststorepass actual_password -destkeystore abc-keystore.jks -srckeystore abc.all.p12  -srcstoretype PKCS12 -srcstorepass actual_password
+```
+* use keytool to import the p12 to a jks
+
+
+
 #### Self-signed certs
 
 The basic idea of using self-signed certs in Cloudera is:

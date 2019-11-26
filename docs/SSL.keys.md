@@ -14,6 +14,9 @@
    - csr.pem (intermediary request for cert)
    - fullchain.pem (when include authority chains)
 
+* windows exported cert 
+    - cert.pfx
+
 * formats
 
    - PEM is simply a base64 encoded DER file (with a plain-text header and footer)
@@ -21,6 +24,7 @@
    - (you colud say DER is to UTF-8 as ASN.1 is to Unicode)
    - ASN.1 would then be a sort of dark-ages object notation for anything
    - X.509, then, is a dark-ages schema that uses ASN.1 to describe a specefic, concrete thing
+
 
 # SSH Public Key  (RFC4253)
 
@@ -143,3 +147,6 @@ openssl x509 -in cacert.pem -text -noout
 
 keytool -printcert -file selfsigned.cer 
 ```
+
+
+# convert windows cert to pem
