@@ -153,12 +153,15 @@ keytool -genkeypair -alias cmhost -keyalg RSA -keysize 2048 -dname "cn=cm01.exam
 ```
 
 * use keytool to import the .cer to jssecacerts trust store
+
 ```
 keytool -importcert -alias xxxx -keystore jssecacerts -file selfsigned.pem -storepass changeit
 ```
+
 * let CM know where the keystore and trust store files are, and which key to use
 
 * A private key (.pem), password file (.pw) and a cert (.pem) are needed for agent. 
+
 ```
 in /etc/cloudera-scm-agent/config.ini
 
@@ -206,6 +209,7 @@ https://www.cloudera.com/documentation/enterprise/5-14-x/topics/sg_add_root_ca_e
     ```
     
     1. init keytab so it has the tkt.
+
     ```
     kinit -p user -kt <filename>.keytab   
     
@@ -213,6 +217,7 @@ https://www.cloudera.com/documentation/enterprise/5-14-x/topics/sg_add_root_ca_e
     ```
     
     1. test hdfs
+
     ```
     hdfs dfs -mkdir /user/abc
     ```
@@ -225,9 +230,11 @@ https://www.cloudera.com/documentation/enterprise/5-14-x/topics/sg_add_root_ca_e
   I need to find a tool to query such information - it seemed Microsoft is rapidly changing the way to package the tool, the name of the tool, and how to install the tool. 
 
   1.  find out the windows version number - why windows can't let winver to display both version and bit information with the same tool :
+
   ```
   winver
   ```
+
   2.  Install the RSAT - windows 10 changed the way to install it after 1809
 
   ```
@@ -235,7 +242,9 @@ https://www.cloudera.com/documentation/enterprise/5-14-x/topics/sg_add_root_ca_e
   dism /online /Get-Features
   dism /online /Enable-feature /FeatureName:DirectoryServices-ADAM-Client
   ```
+
   4. Use PowerShell with elevated 
+
   ```
   Get-WindowsCapability -Online | ? Name -like `RSAT.*'
   Get-WindowsCapability -Online | ? Name -like `RSAT.Server*'|Add-WindowsCapability -Online
@@ -252,6 +261,7 @@ https://www.cloudera.com/documentation/enterprise/5-14-x/topics/sg_add_root_ca_e
 ## Query for AD User for LDAP
 
 #### Linux
+
 ```
 ldapsearch -v -H ldap://adserver.abc.com -D'abc@abc.com' -w'abcpassword' -b'OU=team,OU=Office,OU=users,dc=abc,dc=com'
 # the above command query everything under the OU
@@ -259,7 +269,9 @@ ldapsearch -v -H ldap://adserver.abc.com -D'abc@abc.com' -w'abcpassword' -b'OU=t
 ldapsearch -v -H ldap://adserver.abc.com -D'abc@abc.com' -w'abcpassword' -b'CN=group_name,OU=groups,OU=team,OU=Office,OU=users,dc=abc,dc=com'
 # the above command query everything in the CN group
 ```
+
 #### Windows
+
 ```
 Get-ADUser -Filter 'SamAccountName -like "*admin"'
 Get-ADUser -Filter 'Name -like "*admin"'
