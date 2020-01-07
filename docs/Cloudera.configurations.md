@@ -29,6 +29,7 @@ All the agent configuration is in config.ini. All the other configurations are i
 ## Config CM
 
 * server configuration
+
 ```
   /cm/config (Administration -> Settings -> security):
     KEYSTORE_PATH (cm step1)
