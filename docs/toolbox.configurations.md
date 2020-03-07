@@ -215,7 +215,7 @@ none /cygdrive cygdrive binary,posix=0,noacl,user 0 0
 
 ```
 
-end 2020/03 update
+ente 2020/03 update
 # 
 
 * Set the .bash_profile
