@@ -196,8 +196,30 @@ __Where is the settings.json__
 
 # git bash (2.2)
 
+
+* 2020/03/06 update
+
+It has been a frustration that anaconda put /cygdrive in all of its PATH.  I tried to write script to remove the /cygdrive but it will not work when switch env. 
+
+I end up modify /etc/fstab ( need to run as administrator), so that c is actually mounted as /cygdrive/c. (git-bash by default mount it as /c ). This will make the conda stuff work. 
+
+the only cavity is I when I run python, i need to run "winpty python"
+
+modify 
+```
+none / cygdrive binary,posix=0,noacl,user 0 0
+
+to 
+
+none /cygdrive cygdrive binary,posix=0,noacl,user 0 0
+
+```
+
+end 2020/03 update
+# 
+
 * Set the .bash_profile
-  * set the python environment to Anaconda 'main' env
+  * (no longer valid, see 2020/03/06 update) set the python environment to Anaconda 'main' env
   ```
   export PYTHONPATH=/c/Users/username/Programs/Continuum/anaconda3/envs/main
   export PATH=$PYTHONPATH:$PYTHONPATH/Scripts:$PATH
