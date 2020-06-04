@@ -71,4 +71,39 @@ For example,
 
 t_str = re.sub(r'PART 2.*\n(.*\n)*?.*(EFFECTIVE|E F F E C T).*\n','',t_str, flags=re.MULTILINE)
 
+#### re.match
 
+find the first occurence in the first line: (but the first occurence may have multiple elements)
+```py
+a_str = "guru99 get"
+z = re.match("(g\w+)\W(g\w+)", a_str)
+if z:
+    print((z.groups()))
+
+>>>
+('guru99','get')
+```
+
+
+#### re.search
+
+return True if find the pattern
+
+```py
+if re.search(pattern, text):
+    pass
+
+```
+
+#### re.findall
+
+
+find all occurence 
+
+```py
+
+emails = re.findall(r'[\w\.-]+@[\w\.-]+,abc)
+
+for email in emails:
+    print (email)
+```
