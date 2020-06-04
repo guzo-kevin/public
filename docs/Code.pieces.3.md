@@ -79,8 +79,7 @@ a_str = "guru99 get"
 z = re.match("(g\w+)\W(g\w+)", a_str)
 if z:
     print((z.groups()))
-
->>>
+===========
 ('guru99','get')
 ```
 
@@ -107,3 +106,13 @@ emails = re.findall(r'[\w\.-]+@[\w\.-]+,abc)
 for email in emails:
     print (email)
 ```
+
+
+#### match until
+if for one character
+[^z]*  -- any character until 'z', 'z' not inlcuded
+
+for multiple charater
+(?:(?!X).)* -- where X can be any re expression
+
+
