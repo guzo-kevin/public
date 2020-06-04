@@ -49,3 +49,26 @@ threading
 multiprosessing.dummy.pool
 multiprocessing.pool
 
+
+## Regular Expression
+
+#### Replace part of the match:
+
+Capture the part that you want to keep with parentheses, and include it in the substitution string as $1.
+
+import re
+inp = '653433,78'
+out = re.sub(r'([0-9]{6}),([0-9]{2})', r'\1.\2', inp)
+print out
+
+#### non-greedy
+
+The non-greedy ? works perfectly fine. It's just that you need to select dot matches all option in the regex engines (regexpal, the engine you used, also has this option) you are testing with. This is because, regex engines generally don't match line breaks when you use .. You need to tell them explicitly that you want to match line-breaks too with .
+
+For example,
+
+<img\s.*?>
+
+t_str = re.sub(r'PART 2.*\n(.*\n)*?.*(EFFECTIVE|E F F E C T).*\n','',t_str, flags=re.MULTILINE)
+
+
