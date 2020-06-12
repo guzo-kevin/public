@@ -191,6 +191,7 @@ __Where is the settings.json__
   jupyter notebook --generate-config
   ```
   It will generate .jupyter\jupyter_notebook_config.py, change the parameters in the file
+  change parameter c.NotebookApp.notebook_dir = '/mnt/c/Users/me/linux_home/sources/github/'
 
 
 
