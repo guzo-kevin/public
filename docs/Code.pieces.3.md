@@ -108,7 +108,7 @@ for email in emails:
 ```
 
 
-#### match until
+#### match until a pattern apprears
 if for one character
 [^z]*  -- any character until 'z', 'z' not inlcuded
 
