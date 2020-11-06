@@ -288,3 +288,16 @@ I would use:
 /Alter \_.\{-}GO
 ```
 
+# Python Environment
+
+## Pip dealing with certs:
+
+ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org <package name>
+ pip install gensim config --global http.sslVerify false 
+
+ pip --cert az-elasticsearch-dev.ca.pem install linkchecker  
+
+
+## Add cert to anaconda:
+
+conda config --set ssl_verify az-elasticsearch-dev.ca.pem
